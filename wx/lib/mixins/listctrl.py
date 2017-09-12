@@ -641,10 +641,8 @@ class TextEditMixin:
         evt.Index = self.curRow
         evt.Column = self.curCol
         item = self.GetItem(self.curRow, self.curCol)
-        evt.Item.SetId(item.GetId())
-        evt.Item.SetColumn(item.GetColumn())
-        evt.Item.SetData(item.GetData())
-        evt.Item.SetText(text) #should be empty string if editor was canceled
+        item.SetText(text)
+        evt.SetItem(item)
         ret = self.GetEventHandler().ProcessEvent(evt)
         if not ret or evt.IsAllowed():
             if self.IsVirtual():
