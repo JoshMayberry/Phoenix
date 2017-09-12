@@ -565,6 +565,7 @@ class TextEditMixin:
 
         # give the derived class a chance to Allow/Veto this edit.
         evt = wx.ListEvent(wx.wxEVT_COMMAND_LIST_BEGIN_LABEL_EDIT, self.GetId())
+        evt.SetEventObject(self)
         evt.Index = row
         evt.Column = col
         item = self.GetItem(row, col)
@@ -638,6 +639,7 @@ class TextEditMixin:
         # Event can be vetoed. It doesn't has SetEditCanceled(), what would
         # require passing extra argument to CloseEditor()
         evt = wx.ListEvent(wx.wxEVT_COMMAND_LIST_END_LABEL_EDIT, self.GetId())
+        evt.SetEventObject(self)
         evt.Index = self.curRow
         evt.Column = self.curCol
         item = self.GetItem(self.curRow, self.curCol)
@@ -652,7 +654,7 @@ class TextEditMixin:
                 # data source
                 self.SetVirtualData(self.curRow, self.curCol, text)
             else:
-                self.SetStringItem(self.curRow, self.curCol, text)
+                self.SetItem(self.curRow, self.curCol, text)
         self.RefreshItem(self.curRow)
 
     def _SelectIndex(self, row):
